@@ -281,6 +281,7 @@ class ConsumerDetailView(APIView):
     
             
 ################## Purchase Order
+
 class CreatePurchaseOrderView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -302,15 +303,20 @@ class CreatePurchaseOrderView(APIView):
     )
     def post(self, request):
         try:
+            if request.user.user_type != 'Consumer':
+                return Response({'responseCode':status.HTTP_400_BAD_REQUEST,
+                                 'responseMessage':'Only Consumer can purchase products.'},
+                                status=status.HTTP_400_BAD_REQUEST)
             serializer = PurchaseOrderSerializer(data=request.data, context={'request': request})
             if serializer.is_valid():
                 purchase_order = serializer.save()
-                detail_serializer = PurchaseOrderSerializer(purchase_order)
+                print("serializer",serializer.data)
+                
                 return Response(
                     {
                         'responseCode': status.HTTP_201_CREATED,
                         'responseMessage': 'Purchase order created successfully.',
-                        # 'responseData': detail_serializer.data
+                        'responseData': serializer.data
                     },
                     status=status.HTTP_201_CREATED
                 )
