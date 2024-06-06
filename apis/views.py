@@ -316,7 +316,7 @@ class CreatePurchaseOrderView(APIView):
                     {
                         'responseCode': status.HTTP_201_CREATED,
                         'responseMessage': 'Purchase order created successfully.',
-                        'responseData': serializer.data
+                        # 'responseData': serializer.data
                     },
                     status=status.HTTP_201_CREATED
                 )
@@ -1230,7 +1230,7 @@ class VendorHistoricalPerformance(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-        historical_performances = HistoricalPerformance.objects.filter(vendor=vendor)
+        historical_performances = HistoricalPerformance.objects.filter(vendor=vendor).order_by('-id')
         paginator = Paginator(historical_performances, page_size)
 
         try:

@@ -82,7 +82,7 @@ class PurchaseOrder(models.Model):
     delivery_date = models.DateTimeField("Delivery Date",blank=True, null=True)
     items = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='order_items')
     quantity = models.IntegerField("Quantity",validators=[MinValueValidator(1),])
-    status = models.CharField("Status", max_length=50,  default='Consumer',choices=[('pending', 'Pending'),('acknowledged', 'Acknowledged') ,('issued','Issued'), ('completed', 'Completed'), ('canceled', 'Canceled')])
+    status = models.CharField("Status", max_length=50,  default='pending',choices=[('pending', 'Pending'),('acknowledged', 'Acknowledged') ,('issued','Issued'), ('completed', 'Completed'), ('canceled', 'Canceled')])
     quality_rating = models.FloatField("Quality Rating", null=True, blank=True)
     issue_date = models.DateTimeField("Issue Date",blank=True, null=True)
     acknowledgment_date = models.DateTimeField("Acknowledgment Date", null=True, blank=True)
@@ -111,6 +111,10 @@ class HistoricalPerformance(models.Model):
     quality_rating_avg = models.FloatField("Quality Rating Average",default=0.0)
     average_response_time = models.FloatField("Average Response Time",default=0.0)
     fulfillment_rate = models.FloatField("Fulfillment Rate",default=0.0)
+    
+    class Meta:
+        ordering = ['-id'] 
+
 
     def __str__(self):
         return f"id_{self.id}_Performance_{self.vendor.vendor_code}_{self.date.strftime('%Y-%m-%d')}"

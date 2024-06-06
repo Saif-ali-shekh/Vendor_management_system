@@ -13,7 +13,6 @@ class VendorBaseUserManager(BaseUserManager):
             email=self.normalize_email(email),
             is_active=False,
         )
-        print("VendorBaseUserManager  Normal----",password)
         user.set_password(password)
         user.save(using=self._db)
         return user

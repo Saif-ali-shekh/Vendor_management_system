@@ -20,7 +20,7 @@ Django REST Framework: Powerful and flexible toolkit for building Web APIs in Dj
 Swagger: API documentation tool for describing, producing, consuming, and visualizing RESTful web services.
 Implementation Highlights:
 
-User Model: Custom user model implemented to support  consumer, products,orderr purchase and vendors with different user types.
+User Model: Custom user model implemented to support  consumer, products,order purchase and vendors with different user types.
 API Endpoints: Various endpoints implemented to handle user authentication, vendor management, purchase order tracking, and performance metrics calculation.
 Swagger Documentation: Swagger used to generate interactive API documentation, making it easy for developers to understand and test the endpoints.
 

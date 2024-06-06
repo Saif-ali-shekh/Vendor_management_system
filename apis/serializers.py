@@ -200,11 +200,11 @@ class PurchaseOrderSerializer(serializers.ModelSerializer):
         return value
 
     def create(self, validated_data):
-        print("i am in")
         product = validated_data.pop('item_id')
         quantity = validated_data['quantity']
         if quantity > product.available_quantity:
             raise serializers.ValidationError("Selected quantity is greater than available quantity.")
+        
         product.available_quantity -= quantity
         product.save()
 
